@@ -8,6 +8,11 @@ env/
 venv/
 ENV/
 
+.next/
+node_modules/
+out/
+build/
+
 # --- AI & Data (Crucial for your project) ---
 # Don't push your vector database or raw datasets!
 chroma_db/
