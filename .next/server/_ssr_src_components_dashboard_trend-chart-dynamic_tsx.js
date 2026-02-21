@@ -1,0 +1,25 @@
+"use strict";
+/*
+ * ATTENTION: An "eval-source-map" devtool has been used.
+ * This devtool is neither made for production nor for readable output files.
+ * It uses "eval()" calls to create a separate source file with attached SourceMaps in the browser devtools.
+ * If you are trying to read the output file, select a different devtool (https://webpack.js.org/configuration/devtool/)
+ * or disable the default devtool with "devtool: false".
+ * If you are looking for production-ready output files, see mode: "production" (https://webpack.js.org/configuration/mode/).
+ */
+exports.id = "_ssr_src_components_dashboard_trend-chart-dynamic_tsx";
+exports.ids = ["_ssr_src_components_dashboard_trend-chart-dynamic_tsx"];
+exports.modules = {
+
+/***/ "(ssr)/./src/components/dashboard/trend-chart-dynamic.tsx":
+/*!**********************************************************!*\
+  !*** ./src/components/dashboard/trend-chart-dynamic.tsx ***!
+  \**********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   TrendChart: () => (/* binding */ TrendChart)\n/* harmony export */ });\n/* harmony import */ var react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-dev-runtime */ \"(ssr)/./node_modules/next/dist/server/future/route-modules/app-page/vendored/ssr/react-jsx-dev-runtime.js\");\n/* harmony import */ var react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var next_dynamic__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! next/dynamic */ \"(ssr)/./node_modules/next/dist/api/app-dynamic.js\");\n/* harmony import */ var _components_ui_skeleton__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/components/ui/skeleton */ \"(ssr)/./src/components/ui/skeleton.tsx\");\n/* __next_internal_client_entry_do_not_use__ TrendChart auto */ \n\n\nconst TrendChartInner = (0,next_dynamic__WEBPACK_IMPORTED_MODULE_1__[\"default\"])(async ()=>{\n     true && /*require.resolve*/(null /* weak dependency, without id */);\n}, {\n    loadableGenerated: {\n        modules: [\n            \"components\\\\dashboard\\\\trend-chart-dynamic.tsx -> \" + \"./trend-chart\"\n        ]\n    },\n    ssr: false,\n    loading: ()=>/*#__PURE__*/ (0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxDEV)(_components_ui_skeleton__WEBPACK_IMPORTED_MODULE_2__.Skeleton, {\n            className: \"h-[300px] min-h-[300px] w-full min-w-0 rounded-lg\"\n        }, void 0, false, {\n            fileName: \"D:\\\\Hackkaton\\\\gemi\\\\ai-compliance-platform\\\\src\\\\components\\\\dashboard\\\\trend-chart-dynamic.tsx\",\n            lineNumber: 11,\n            columnNumber: 7\n        }, undefined)\n});\nfunction TrendChart(props) {\n    return /*#__PURE__*/ (0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxDEV)(TrendChartInner, {\n        ...props\n    }, void 0, false, {\n        fileName: \"D:\\\\Hackkaton\\\\gemi\\\\ai-compliance-platform\\\\src\\\\components\\\\dashboard\\\\trend-chart-dynamic.tsx\",\n        lineNumber: 21,\n        columnNumber: 10\n    }, this);\n}\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiKHNzcikvLi9zcmMvY29tcG9uZW50cy9kYXNoYm9hcmQvdHJlbmQtY2hhcnQtZHluYW1pYy50c3giLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7O0FBRW1DO0FBQ2lCO0FBRXBELE1BQU1FLGtCQUFrQkYsd0RBQU9BOzs7Ozs7OztJQUczQkcsS0FBSztJQUNMQyxTQUFTLGtCQUNQLDhEQUFDSCw2REFBUUE7WUFBQ0ksV0FBVTs7Ozs7OztBQVNuQixTQUFTQyxXQUFXQyxLQUFzQjtJQUMvQyxxQkFBTyw4REFBQ0w7UUFBaUIsR0FBR0ssS0FBSzs7Ozs7O0FBQ25DIiwic291cmNlcyI6WyJ3ZWJwYWNrOi8vYWktY29tcGxpYW5jZS1wbGF0Zm9ybS8uL3NyYy9jb21wb25lbnRzL2Rhc2hib2FyZC90cmVuZC1jaGFydC1keW5hbWljLnRzeD84NzY1Il0sInNvdXJjZXNDb250ZW50IjpbIlwidXNlIGNsaWVudFwiO1xuXG5pbXBvcnQgZHluYW1pYyBmcm9tIFwibmV4dC9keW5hbWljXCI7XG5pbXBvcnQgeyBTa2VsZXRvbiB9IGZyb20gXCJAL2NvbXBvbmVudHMvdWkvc2tlbGV0b25cIjtcblxuY29uc3QgVHJlbmRDaGFydElubmVyID0gZHluYW1pYyhcbiAgKCkgPT4gaW1wb3J0KFwiLi90cmVuZC1jaGFydFwiKS50aGVuKChtKSA9PiBtLlRyZW5kQ2hhcnQpLFxuICB7XG4gICAgc3NyOiBmYWxzZSxcbiAgICBsb2FkaW5nOiAoKSA9PiAoXG4gICAgICA8U2tlbGV0b24gY2xhc3NOYW1lPVwiaC1bMzAwcHhdIG1pbi1oLVszMDBweF0gdy1mdWxsIG1pbi13LTAgcm91bmRlZC1sZ1wiIC8+XG4gICAgKSxcbiAgfVxuKTtcblxuaW50ZXJmYWNlIFRyZW5kQ2hhcnRQcm9wcyB7XG4gIGRhdGE6IHsgZGF0ZTogc3RyaW5nOyBzY29yZTogbnVtYmVyOyB2aW9sYXRpb25zOiBudW1iZXIgfVtdO1xufVxuXG5leHBvcnQgZnVuY3Rpb24gVHJlbmRDaGFydChwcm9wczogVHJlbmRDaGFydFByb3BzKSB7XG4gIHJldHVybiA8VHJlbmRDaGFydElubmVyIHsuLi5wcm9wc30gLz47XG59XG4iXSwibmFtZXMiOlsiZHluYW1pYyIsIlNrZWxldG9uIiwiVHJlbmRDaGFydElubmVyIiwic3NyIiwibG9hZGluZyIsImNsYXNzTmFtZSIsIlRyZW5kQ2hhcnQiLCJwcm9wcyJdLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///(ssr)/./src/components/dashboard/trend-chart-dynamic.tsx\n");
+
+/***/ })
+
+};
+;

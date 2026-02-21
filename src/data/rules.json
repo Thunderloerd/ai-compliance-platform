@@ -1,0 +1,98 @@
+[
+  {
+    "id": "rule-001",
+    "policyId": "pol-001",
+    "policyName": "Data Privacy & Protection Policy",
+    "clause": "All personal data must be encrypted at rest using AES-256 encryption standard.",
+    "severity": "critical",
+    "status": "active",
+    "version": "2.1",
+    "department": "Legal",
+    "createdAt": "2024-01-15T10:00:00Z",
+    "category": "Data Security"
+  },
+  {
+    "id": "rule-002",
+    "policyId": "pol-001",
+    "policyName": "Data Privacy & Protection Policy",
+    "clause": "Data retention periods must not exceed 7 years for customer records unless legally required.",
+    "severity": "high",
+    "status": "active",
+    "version": "2.1",
+    "department": "Legal",
+    "createdAt": "2024-01-15T10:00:00Z",
+    "category": "Data Retention"
+  },
+  {
+    "id": "rule-003",
+    "policyId": "pol-002",
+    "policyName": "Access Control & Authentication",
+    "clause": "Multi-factor authentication must be enabled for all privileged accounts.",
+    "severity": "critical",
+    "status": "active",
+    "version": "1.8",
+    "department": "Security",
+    "createdAt": "2024-01-08T09:00:00Z",
+    "category": "Authentication"
+  },
+  {
+    "id": "rule-004",
+    "policyId": "pol-002",
+    "policyName": "Access Control & Authentication",
+    "clause": "Password complexity must enforce minimum 12 characters with mixed case, numbers, and symbols.",
+    "severity": "high",
+    "status": "active",
+    "version": "1.8",
+    "department": "Security",
+    "createdAt": "2024-01-08T09:00:00Z",
+    "category": "Authentication"
+  },
+  {
+    "id": "rule-005",
+    "policyId": "pol-003",
+    "policyName": "Incident Response Procedure",
+    "clause": "Security incidents must be reported to the SOC within 15 minutes of discovery.",
+    "severity": "critical",
+    "status": "active",
+    "version": "3.0",
+    "department": "IT Operations",
+    "createdAt": "2024-01-22T11:00:00Z",
+    "category": "Incident Response"
+  },
+  {
+    "id": "rule-006",
+    "policyId": "pol-004",
+    "policyName": "Employee Code of Conduct",
+    "clause": "Confidential information must not be shared outside authorized channels.",
+    "severity": "high",
+    "status": "active",
+    "version": "1.5",
+    "department": "HR",
+    "createdAt": "2023-12-10T08:00:00Z",
+    "category": "Confidentiality"
+  },
+  {
+    "id": "rule-007",
+    "policyId": "pol-001",
+    "policyName": "Data Privacy & Protection Policy",
+    "clause": "Third-party data processors must sign DPAs before data transfer.",
+    "severity": "high",
+    "status": "active",
+    "version": "2.1",
+    "department": "Legal",
+    "createdAt": "2024-01-15T10:00:00Z",
+    "category": "Third-Party"
+  },
+  {
+    "id": "rule-008",
+    "policyId": "pol-005",
+    "policyName": "Vendor Security Requirements",
+    "clause": "Vendors must maintain SOC 2 Type II certification for Tier 1 services.",
+    "severity": "critical",
+    "status": "active",
+    "version": "2.0",
+    "department": "Procurement",
+    "createdAt": "2024-02-01T14:00:00Z",
+    "category": "Vendor Compliance"
+  }
+]

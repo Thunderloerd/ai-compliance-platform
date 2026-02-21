@@ -1,0 +1,26 @@
+{
+  "app\\(app)\\dashboard\\page.tsx -> @/components/dashboard/recent-violations": {
+    "id": "app\\(app)\\dashboard\\page.tsx -> @/components/dashboard/recent-violations",
+    "files": [
+      "static/chunks/_app-pages-browser_src_components_dashboard_recent-violations_tsx.js"
+    ]
+  },
+  "app\\(app)\\dashboard\\page.tsx -> @/components/dashboard/risk-heatmap": {
+    "id": "app\\(app)\\dashboard\\page.tsx -> @/components/dashboard/risk-heatmap",
+    "files": [
+      "static/chunks/_app-pages-browser_src_components_dashboard_risk-heatmap_tsx.js"
+    ]
+  },
+  "app\\(app)\\dashboard\\page.tsx -> @/components/dashboard/trend-chart-dynamic": {
+    "id": "app\\(app)\\dashboard\\page.tsx -> @/components/dashboard/trend-chart-dynamic",
+    "files": [
+      "static/chunks/_app-pages-browser_src_components_dashboard_trend-chart-dynamic_tsx.js"
+    ]
+  },
+  "components\\dashboard\\trend-chart-dynamic.tsx -> ./trend-chart": {
+    "id": "components\\dashboard\\trend-chart-dynamic.tsx -> ./trend-chart",
+    "files": [
+      "static/chunks/_app-pages-browser_src_components_dashboard_trend-chart_tsx.js"
+    ]
+  }
+}

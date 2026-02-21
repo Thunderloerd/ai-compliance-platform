@@ -1,0 +1,33 @@
+{
+  "complianceScore": 87,
+  "totalPolicies": 5,
+  "activeViolations": 12,
+  "criticalAlerts": 3,
+  "trendData": [
+    { "date": "2024-01-12", "score": 82, "violations": 18 },
+    { "date": "2024-01-19", "score": 84, "violations": 15 },
+    { "date": "2024-01-26", "score": 83, "violations": 16 },
+    { "date": "2024-02-02", "score": 85, "violations": 14 },
+    { "date": "2024-02-09", "score": 87, "violations": 12 }
+  ],
+  "departmentRiskHeatmap": [
+    { "department": "Engineering", "critical": 2, "high": 4, "medium": 3, "riskScore": 72 },
+    { "department": "IT Operations", "critical": 1, "high": 2, "medium": 1, "riskScore": 58 },
+    { "department": "Sales", "critical": 0, "high": 2, "medium": 4, "riskScore": 45 },
+    { "department": "Marketing", "critical": 0, "high": 1, "medium": 2, "riskScore": 35 },
+    { "department": "HR", "critical": 0, "high": 1, "medium": 1, "riskScore": 28 },
+    { "department": "Customer Success", "critical": 0, "high": 0, "medium": 3, "riskScore": 22 },
+    { "department": "Legal", "critical": 0, "high": 0, "medium": 0, "riskScore": 5 }
+  ],
+  "recentViolations": [
+    { "id": "viol-001", "severity": "critical", "department": "Engineering", "description": "Database backup encryption standard violation" },
+    { "id": "viol-004", "severity": "high", "department": "Marketing", "description": "Confidential document shared externally" },
+    { "id": "viol-003", "severity": "high", "department": "Sales", "description": "Delayed incident reporting" }
+  ],
+  "reportMetrics": {
+    "policiesReviewed": 24,
+    "violationsResolved": 8,
+    "averageResolutionTime": "4.2 days",
+    "complianceTrend": "improving"
+  }
+}

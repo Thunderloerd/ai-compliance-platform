@@ -1,0 +1,52 @@
+[
+  {
+    "id": "pol-001",
+    "name": "Data Privacy & Protection Policy",
+    "version": "2.1",
+    "status": "active",
+    "uploadDate": "2024-01-15",
+    "department": "Legal",
+    "rulesCount": 24,
+    "lastReviewed": "2024-02-01"
+  },
+  {
+    "id": "pol-002",
+    "name": "Access Control & Authentication",
+    "version": "1.8",
+    "status": "active",
+    "uploadDate": "2024-01-08",
+    "department": "Security",
+    "rulesCount": 18,
+    "lastReviewed": "2024-01-28"
+  },
+  {
+    "id": "pol-003",
+    "name": "Incident Response Procedure",
+    "version": "3.0",
+    "status": "active",
+    "uploadDate": "2024-01-22",
+    "department": "IT Operations",
+    "rulesCount": 32,
+    "lastReviewed": "2024-02-05"
+  },
+  {
+    "id": "pol-004",
+    "name": "Employee Code of Conduct",
+    "version": "1.5",
+    "status": "active",
+    "uploadDate": "2023-12-10",
+    "department": "HR",
+    "rulesCount": 15,
+    "lastReviewed": "2024-01-15"
+  },
+  {
+    "id": "pol-005",
+    "name": "Vendor Security Requirements",
+    "version": "2.0",
+    "status": "draft",
+    "uploadDate": "2024-02-01",
+    "department": "Procurement",
+    "rulesCount": 21,
+    "lastReviewed": null
+  }
+]
