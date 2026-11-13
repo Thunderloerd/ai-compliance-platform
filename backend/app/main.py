@@ -152,12 +152,14 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
-# Allow frontend (Next.js dev on port 3000) to call the API
+# Allow frontend (Next.js dev on port 3000, plain HTML on port 5500) to call the API
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:3000",
         "http://127.0.0.1:3000",
+        "http://localhost:5500",
+        "http://127.0.0.1:5500",
     ],
     allow_credentials=True,
     allow_methods=["*"],

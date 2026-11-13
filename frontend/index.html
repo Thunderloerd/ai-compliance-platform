@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Compliance Intelligence Platform</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <script>
+    // Apply the saved theme before the page is drawn (no flash of the wrong colors).
+    try {
+      if (localStorage.getItem("compliance-theme") === "light") {
+        document.documentElement.classList.remove("dark");
+      }
+    } catch (error) {}
+  </script>
+</head>
+<body>
+  <div class="landing-glow"></div>
+
+  <header class="landing-header">
+    <div class="landing-header-inner">
+      <a class="landing-brand" href="index.html">
+        <span class="logo-box">AI</span>
+        <span>AI Compliance</span>
+      </a>
+      <nav class="landing-nav">
+        <a href="#features">Features</a>
+        <a href="#how-it-works">How It Works</a>
+        <a class="btn btn-ghost" href="login.html">Sign in</a>
+        <a class="btn btn-primary" href="login.html">Get Started</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="landing-hero page-fade">
+    <h1>AI-Powered Continuous <span class="gradient-text">Compliance Monitoring</span></h1>
+    <p>
+      Automate policy analysis and rule extraction with AI. Monitor compliance in real time, reduce risk, and keep
+      your organization audit-ready.
+    </p>
+    <div class="landing-buttons">
+      <a class="btn btn-gradient" style="width:auto;padding:0 1.5rem" href="login.html">Get Started</a>
+      <a class="btn btn-outline" style="height:44px" href="#features">View Features</a>
+    </div>
+  </section>
+
+  <section class="landing-section tinted" id="features">
+    <h2>Enterprise-Grade Compliance, Simplified</h2>
+    <p>From policy upload to violation tracking, one platform for continuous compliance.</p>
+
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-icon">&#128269;</div>
+        <h3 class="card-title" style="margin-top:1rem">AI Rule Extraction</h3>
+        <p class="card-desc">
+          Upload policies and let AI identify compliance rules, severity, and requirements automatically.
+        </p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">&#128202;</div>
+        <h3 class="card-title" style="margin-top:1rem">Real-Time Monitoring</h3>
+        <p class="card-desc">
+          Track compliance scores, violations, and trends across departments with live dashboards.
+        </p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">&#9889;</div>
+        <h3 class="card-title" style="margin-top:1rem">Review &amp; Remediation</h3>
+        <p class="card-desc">
+          Approve or reject findings, add comments, and maintain a full audit trail for regulators.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="landing-section" id="how-it-works">
+    <h2>How It Works</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-number">1</div>
+        <div>
+          <h3 class="card-title">Upload policies</h3>
+          <p class="card-desc">Drag and drop PDF policy documents into the platform.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-number">2</div>
+        <div>
+          <h3 class="card-title">AI extracts rules</h3>
+          <p class="card-desc">Our AI identifies compliance rules, clauses, and severity levels.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-number">3</div>
+        <div>
+          <h3 class="card-title">Monitor &amp; detect</h3>
+          <p class="card-desc">Track violations, compliance scores, and risk by department.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-number">4</div>
+        <div>
+          <h3 class="card-title">Review &amp; report</h3>
+          <p class="card-desc">Approve findings, add comments, and export audit-ready reports.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="landing-footer" style="border-top:1px solid var(--border)">
+    <p>&copy; <span id="year"></span> AI Compliance Intelligence Platform. Enterprise compliance monitoring.</p>
+  </footer>
+
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/layout.js"></script>
+  <script>
+    // Simple landing page: show the current year and use the saved theme.
+    document.getElementById("year").textContent = new Date().getFullYear();
+    var savedTheme = localStorage.getItem(THEME_KEY);
+    applyTheme(savedTheme === "light" ? "light" : "dark");
+  </script>
+</body>
+</html>

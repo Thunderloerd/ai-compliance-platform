@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Review | AI Compliance Intelligence</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <script>
+    // Apply the saved theme before the page is drawn (no flash of the wrong colors).
+    try {
+      if (localStorage.getItem("compliance-theme") === "light") {
+        document.documentElement.classList.remove("dark");
+      }
+    } catch (error) {}
+  </script>
+</head>
+<body>
+  <div class="app-shell">
+    <!-- The sidebar and the header are filled in by js/layout.js -->
+    <aside class="sidebar" id="sidebar"></aside>
+
+    <div class="main-wrap" id="main-wrap">
+      <header class="topbar" id="topbar"></header>
+
+      <main class="main-content">
+        <div class="stack page-fade">
+          <div>
+            <h1 class="page-title">Review</h1>
+            <p class="page-subtitle">Approve or reject compliance violations with reviewer comments</p>
+          </div>
+
+          <!-- Error box: shows the message from the backend when something goes wrong -->
+          <div id="review-error" class="alert alert-error hidden"></div>
+
+          <div class="review-layout">
+            <!-- Left: the violation that is being reviewed -->
+            <div class="stack">
+              <div class="card" id="detail-card">
+                <div class="card-body" id="detail-body">
+                  <div class="loading-box"><span class="spinner"></span> Loading violations...</div>
+                </div>
+              </div>
+
+              <!-- The comment box and the two buttons -->
+              <div class="card" id="comment-card">
+                <div class="card-header">
+                  <h3 class="card-title">Reviewer Comment</h3>
+                  <p class="card-desc">Add a comment for the audit log (optional)</p>
+                </div>
+                <div class="card-body">
+                  <input class="input" id="comment-input" placeholder="Enter your review comment..." />
+                  <div class="flex-gap" style="margin-top:1rem">
+                    <button class="btn btn-primary" id="approve-button" type="button" style="flex:1">Approve</button>
+                    <button class="btn btn-danger" id="reject-button" type="button" style="flex:1">Reject</button>
+                  </div>
+                  <p class="text-small text-muted" id="action-message" style="margin-top:.75rem"></p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right: the list of pending violations and the audit log -->
+            <div class="stack">
+              <div class="card">
+                <div class="card-header">
+                  <h3 class="card-title">Pending Review</h3>
+                  <p class="card-desc" id="pending-count">0 violations</p>
+                </div>
+                <div class="card-body" id="pending-list">
+                  <div class="loading-box"><span class="spinner"></span> Loading...</div>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-header">
+                  <h3 class="card-title">Audit Log</h3>
+                  <p class="card-desc">Everything that happened in the app</p>
+                </div>
+                <div class="card-body" id="audit-list">
+                  <div class="loading-box"><span class="spinner"></span> Loading...</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/layout.js"></script>
+  <script src="js/review.js"></script>
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Upload Policy | AI Compliance Intelligence</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <script>
+    // Apply the saved theme before the page is drawn (no flash of the wrong colors).
+    try {
+      if (localStorage.getItem("compliance-theme") === "light") {
+        document.documentElement.classList.remove("dark");
+      }
+    } catch (error) {}
+  </script>
+</head>
+<body>
+  <div class="app-shell">
+    <!-- The sidebar and the header are filled in by js/layout.js -->
+    <aside class="sidebar" id="sidebar"></aside>
+
+    <div class="main-wrap" id="main-wrap">
+      <header class="topbar" id="topbar"></header>
+
+      <main class="main-content">
+        <div class="stack page-fade">
+          <div>
+            <h1 class="page-title">Upload Policy</h1>
+            <p class="page-subtitle">Upload PDF policy documents for AI-powered rule extraction</p>
+          </div>
+
+          <!-- Error box: shows the message from the backend when something goes wrong -->
+          <div id="upload-error" class="alert alert-error hidden"></div>
+
+          <div class="grid grid-2">
+            <!-- Left: the drag and drop area -->
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Policy Document</h3>
+                <p class="card-desc">Drag and drop PDF files or click to browse</p>
+              </div>
+              <div class="card-body">
+                <!-- The dropzone changes its text while the file is uploaded -->
+                <div class="dropzone" id="dropzone">
+                  <input type="file" id="file-input" accept=".pdf,application/pdf" class="hidden" />
+
+                  <!-- Shown when nothing is happening yet -->
+                  <div id="drop-idle">
+                    <div class="dropzone-icon">&#128196;</div>
+                    <div>
+                      <p class="card-title">Drop PDF here or click to upload</p>
+                      <p class="card-desc" style="margin-top:.35rem">
+                        Max <span id="max-size">10</span>MB. First upload may take 30-90s (AI extraction).
+                      </p>
+                    </div>
+                  </div>
+
+                  <!-- Shown while uploading and when it failed -->
+                  <div id="drop-busy" class="hidden" style="width:100%;max-width:22rem">
+                    <div class="flex-gap">
+                      <div class="rule-icon" style="width:44px;height:44px;font-size:1.2rem">&#128196;</div>
+                      <div style="flex:1;min-width:0">
+                        <p class="card-title" id="busy-file-name"></p>
+                        <p class="card-desc" id="busy-message">Uploading &amp; processing PDF...</p>
+                      </div>
+                    </div>
+                    <div class="progress" id="upload-progress"><span style="width:0%"></span></div>
+                    <p class="text-small text-muted" id="busy-hint">This may take 15-60s for large PDFs.</p>
+                    <button class="btn btn-outline btn-sm" id="try-again" type="button">Try again</button>
+                  </div>
+
+                  <!-- Shown when the upload worked -->
+                  <div id="drop-done" class="hidden">
+                    <div class="dropzone-icon" style="background:rgba(34,197,94,.15);color:var(--success)">&#10003;</div>
+                    <div>
+                      <p class="card-title">Upload complete</p>
+                      <p class="card-desc" style="margin-top:.35rem">
+                        <span id="done-file-name"></span> processed successfully
+                      </p>
+                    </div>
+                    <button class="btn btn-outline" id="upload-another" type="button">Upload another</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right: the rules the AI found in the PDF -->
+            <div class="card">
+              <div class="card-header card-header-row">
+                <div>
+                  <h3 class="card-title">Extracted Rules</h3>
+                  <p class="card-desc">AI-identified compliance rules from your policy</p>
+                </div>
+                <button class="btn btn-outline btn-sm hidden" id="clear-rules" type="button">Clear</button>
+              </div>
+              <div class="card-body">
+                <div id="rules-preview">
+                  <div class="empty-state" style="min-height:320px">
+                    Upload a policy to see extracted rules
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/layout.js"></script>
+  <script src="js/upload.js"></script>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Violations | AI Compliance Intelligence</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <script>
+    // Apply the saved theme before the page is drawn (no flash of the wrong colors).
+    try {
+      if (localStorage.getItem("compliance-theme") === "light") {
+        document.documentElement.classList.remove("dark");
+      }
+    } catch (error) {}
+  </script>
+</head>
+<body>
+  <div class="app-shell">
+    <!-- The sidebar and the header are filled in by js/layout.js -->
+    <aside class="sidebar" id="sidebar"></aside>
+
+    <div class="main-wrap" id="main-wrap">
+      <header class="topbar" id="topbar"></header>
+
+      <main class="main-content">
+        <div class="stack page-fade">
+          <div>
+            <h1 class="page-title">Violations</h1>
+            <p class="page-subtitle">Track and manage compliance violations across your organization</p>
+          </div>
+
+          <!-- Small explanation, the same as the old page -->
+          <div class="card accent">
+            <div class="card-body">
+              <h3 class="card-title">What are violations?</h3>
+              <p class="card-desc" style="margin-top:.4rem">
+                Violations are <strong>records in your connected company database</strong> that break the compliance
+                rules extracted from your policy PDFs. Each row here is one violating record: it shows the
+                <strong>policy rule</strong> (clause), <strong>severity</strong>, <strong>status</strong>
+                (pending / approved / dismissed), <strong>evidence</strong> (the actual data that failed the rule),
+                and an <strong>AI-generated explanation</strong> of why it violates. Connect your database in
+                Settings, upload policy PDFs to create rules, then run a scan from the Dashboard.
+              </p>
+            </div>
+          </div>
+
+          <!-- Filters: search, severity, department and status -->
+          <div class="filter-bar">
+            <div class="search-wrap">
+              <span class="search-icon">&#128269;</span>
+              <input class="input" type="search" id="search-input" placeholder="Search violations..." />
+            </div>
+            <select class="select" id="severity-filter">
+              <option value="all">All Severity</option>
+              <option value="critical">Critical</option>
+              <option value="high">High</option>
+              <option value="medium">Medium</option>
+            </select>
+            <select class="select" id="department-filter">
+              <option value="all">All Departments</option>
+            </select>
+            <select class="select" id="status-filter">
+              <option value="all">All Status</option>
+              <option value="pending">Pending</option>
+              <option value="approved">Approved</option>
+              <option value="dismissed">Dismissed</option>
+              <option value="resolved">Resolved</option>
+            </select>
+          </div>
+
+          <!-- Error box: shows the message from the backend when something goes wrong -->
+          <div id="violations-error" class="alert alert-error hidden"></div>
+
+          <!-- The table with the violations -->
+          <div class="card">
+            <div class="table-wrap">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Severity</th>
+                    <th>Policy Clause</th>
+                    <th>Record</th>
+                    <th>Status</th>
+                    <th>Discovered</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody id="violations-body">
+                  <tr><td colspan="6"><div class="loading-box"><span class="spinner"></span> Loading violations...</div></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/layout.js"></script>
+  <script src="js/violations.js"></script>
+</body>
+</html>

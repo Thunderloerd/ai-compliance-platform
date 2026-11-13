@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ask policy | AI Compliance Intelligence</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <script>
+    // Apply the saved theme before the page is drawn (no flash of the wrong colors).
+    try {
+      if (localStorage.getItem("compliance-theme") === "light") {
+        document.documentElement.classList.remove("dark");
+      }
+    } catch (error) {}
+  </script>
+</head>
+<body>
+  <div class="app-shell">
+    <!-- The sidebar and the header are filled in by js/layout.js -->
+    <aside class="sidebar" id="sidebar"></aside>
+
+    <div class="main-wrap" id="main-wrap">
+      <header class="topbar" id="topbar"></header>
+
+      <main class="main-content">
+        <div class="stack page-fade">
+          <div>
+            <h1 class="page-title" id="coming-title">Ask policy</h1>
+            <p class="page-subtitle">This part of the app is being rebuilt in plain HTML</p>
+          </div>
+
+          <div class="card">
+            <div class="card-body coming-soon">
+              <div class="dropzone-icon" style="margin:0 auto 1rem">&#128296;</div>
+              <h3 class="card-title">Coming soon</h3>
+              <p class="card-desc" style="margin-top:.5rem">
+                The Ask policy page is not finished yet. It will get the same features as the old React page:
+                the real data from the backend, loading and error messages, and the same buttons.
+              </p>
+              <p class="card-desc" style="margin-top:.75rem">
+                You can already use the other pages: Dashboard, Upload Policy, Rules, Violations and Review.
+              </p>
+              <a class="btn btn-primary" href="dashboard.html" style="margin-top:1.25rem">Back to Dashboard</a>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/layout.js"></script>
+  <script src="js/coming-soon.js"></script>
+</body>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard | AI Compliance Intelligence</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <script>
+    // Apply the saved theme before the page is drawn (no flash of the wrong colors).
+    try {
+      if (localStorage.getItem("compliance-theme") === "light") {
+        document.documentElement.classList.remove("dark");
+      }
+    } catch (error) {}
+  </script>
+</head>
+<body>
+  <div class="app-shell">
+    <!-- The sidebar and the header are filled in by js/layout.js -->
+    <aside class="sidebar" id="sidebar"></aside>
+
+    <div class="main-wrap" id="main-wrap">
+      <header class="topbar" id="topbar"></header>
+
+      <main class="main-content">
+        <div class="stack page-fade">
+          <div>
+            <h1 class="page-title">Dashboard</h1>
+            <p class="page-subtitle">AI-powered compliance monitoring and analytics overview</p>
+          </div>
+
+          <!-- The four small number cards -->
+          <div class="grid grid-4">
+            <div class="kpi-card">
+              <div class="flex-between">
+                <div>
+                  <p class="kpi-title">Compliance Score</p>
+                  <p class="kpi-value gradient" id="kpi-score">--</p>
+                </div>
+                <div class="kpi-icon gold">&#9878;</div>
+              </div>
+            </div>
+            <div class="kpi-card">
+              <div class="flex-between">
+                <div>
+                  <p class="kpi-title">Total Policies</p>
+                  <p class="kpi-value" id="kpi-policies">--</p>
+                </div>
+                <div class="kpi-icon">&#128196;</div>
+              </div>
+            </div>
+            <div class="kpi-card">
+              <div class="flex-between">
+                <div>
+                  <p class="kpi-title">Active Violations</p>
+                  <p class="kpi-value" id="kpi-violations">--</p>
+                </div>
+                <div class="kpi-icon">&#9888;</div>
+              </div>
+            </div>
+            <div class="kpi-card">
+              <div class="flex-between">
+                <div>
+                  <p class="kpi-title">Critical Alerts</p>
+                  <p class="kpi-value" id="kpi-alerts">--</p>
+                </div>
+                <div class="kpi-icon">&#128276;</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Error box: shows the message from the backend when something goes wrong -->
+          <div id="dashboard-error" class="alert alert-error hidden"></div>
+
+          <!-- The button that starts a compliance scan -->
+          <div class="card accent">
+            <div class="card-header">
+              <h3 class="card-title">&#9654; Scan database</h3>
+              <p class="card-desc">
+                Run a compliance scan against your connected company database. Rules from uploaded policies are
+                executed; violations appear below and in Review.
+              </p>
+            </div>
+            <div class="card-body">
+              <div id="scan-area">
+                <button class="btn btn-primary" id="run-scan-button">Run scan now</button>
+                <p class="text-small" id="scan-message"></p>
+              </div>
+              <p class="text-small text-muted" id="scan-hint">
+                Upload at least one policy first, and connect your database via Settings or API.
+              </p>
+            </div>
+          </div>
+
+          <!-- Trend chart and the compliance score ring -->
+          <div class="grid-sidebar">
+            <div class="card">
+              <div class="card-header card-header-row">
+                <div>
+                  <h3 class="card-title">30-Day Compliance Trend</h3>
+                  <p class="card-desc">Score progression over the last 30 days</p>
+                </div>
+                <div class="hide-on-phone" id="score-ring"></div>
+              </div>
+              <div class="card-body">
+                <div id="trend-chart-box">
+                  <div class="empty-state">No trend data yet. Run scans over time to see score progression.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Risk Heatmap</h3>
+                <p class="card-desc">
+                  Department-based risk distribution. Each bar shows a department's risk score; higher % means more
+                  risk (more violations or severity).
+                </p>
+              </div>
+              <div class="card-body" id="risk-heatmap-box">
+                <div class="empty-state">No department risk data yet. Run a scan to see risk by department.</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- The newest violations -->
+          <div class="card">
+            <div class="card-header card-header-row">
+              <h3 class="card-title">Recent Violations</h3>
+              <a class="text-small" href="violations.html" style="color:var(--primary)">View all &rsaquo;</a>
+            </div>
+            <div class="card-body" id="recent-violations-box">
+              <div class="loading-box"><span class="spinner"></span> Loading violations...</div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Chart.js is used for the charts (loaded from a CDN) -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/layout.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>

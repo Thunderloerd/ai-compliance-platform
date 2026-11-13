@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rules | AI Compliance Intelligence</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <script>
+    // Apply the saved theme before the page is drawn (no flash of the wrong colors).
+    try {
+      if (localStorage.getItem("compliance-theme") === "light") {
+        document.documentElement.classList.remove("dark");
+      }
+    } catch (error) {}
+  </script>
+</head>
+<body>
+  <div class="app-shell">
+    <!-- The sidebar and the header are filled in by js/layout.js -->
+    <aside class="sidebar" id="sidebar"></aside>
+
+    <div class="main-wrap" id="main-wrap">
+      <header class="topbar" id="topbar"></header>
+
+      <main class="main-content">
+        <div class="stack page-fade">
+          <div class="flex-between" style="flex-wrap:wrap">
+            <div>
+              <h1 class="page-title">Rules</h1>
+              <p class="page-subtitle">Policy-derived compliance rules and requirements</p>
+            </div>
+            <div class="flex-gap">
+              <button class="btn btn-primary btn-sm" id="add-rule-button" type="button">+ Add rule</button>
+              <button class="btn btn-outline btn-sm" id="refresh-button" type="button">Refresh</button>
+            </div>
+          </div>
+
+          <!-- Filters -->
+          <div class="filter-bar">
+            <select class="select" id="status-filter">
+              <option value="all">All Status</option>
+              <option value="active">Active</option>
+            </select>
+            <select class="select" id="severity-filter">
+              <option value="all">All Severity</option>
+              <option value="critical">Critical</option>
+              <option value="high">High</option>
+              <option value="medium">Medium</option>
+            </select>
+          </div>
+
+          <!-- Error box: shows the message from the backend when something goes wrong -->
+          <div id="rules-error" class="alert alert-error hidden"></div>
+
+          <!-- The list of rules -->
+          <div id="rules-list">
+            <div class="loading-box"><span class="spinner"></span> Loading rules...</div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- The "Add rule" window -->
+  <div class="modal-backdrop hidden" id="add-rule-modal">
+    <div class="modal">
+      <div class="modal-head">
+        <h3 class="card-title">Add rule</h3>
+        <p class="card-desc">Create a manual compliance rule linked to a policy.</p>
+      </div>
+      <div class="modal-body">
+        <div id="add-rule-error" class="alert alert-error hidden" style="margin-bottom:1rem"></div>
+        <div class="field">
+          <label for="add-policy">Policy</label>
+          <select class="select" id="add-policy" style="width:100%">
+            <option value="">Select policy</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="add-severity">Severity</label>
+          <select class="select" id="add-severity" style="width:100%">
+            <option value="critical">Critical</option>
+            <option value="high">High</option>
+            <option value="medium">Medium</option>
+            <option value="low">Low</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="add-clause">Rule text</label>
+          <textarea class="textarea" id="add-clause" placeholder="e.g. All personal data must be encrypted at rest."></textarea>
+        </div>
+      </div>
+      <div class="modal-foot">
+        <button class="btn btn-outline" id="add-rule-cancel" type="button">Cancel</button>
+        <button class="btn btn-primary" id="add-rule-save" type="button">Add rule</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/layout.js"></script>
+  <script src="js/rules.js"></script>
+</body>
+</html>
