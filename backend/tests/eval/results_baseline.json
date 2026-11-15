@@ -1,0 +1,263 @@
+{
+  "summary": {
+    "total": 25,
+    "correct": 5,
+    "correct_pct": 20.0,
+    "correct_factual_multi": 0,
+    "correct_number_questions": 0,
+    "correct_not_found": 5,
+    "avg_time_sec": 0.12
+  },
+  "results": [
+    {
+      "id": 1,
+      "category": "factual",
+      "question": "What encryption algorithm must be used for personal data?",
+      "expected": "AES-256",
+      "answer": "No policy documents are indexed yet. Upload policy PDFs first (Upload Policy), then try again. If you already uploaded policies, use 'Index existing policies' above to index them for Q&A.",
+      "correct": false,
+      "elapsed_sec": 0.119,
+      "retrieved_chunks": []
+    },
+    {
+      "id": 2,
+      "category": "factual",
+      "question": "For how many years can customer data be retained after the last transaction?",
+      "expected": "7 years",
+      "answer": "No policy documents are indexed yet. Upload policy PDFs first (Upload Policy), then try again. If you already uploaded policies, use 'Index existing policies' above to index them for Q&A.",
+      "correct": false,
+      "elapsed_sec": 0.093,
+      "retrieved_chunks": []
+    },
+    {
+      "id": 3,
+      "category": "factual",
+      "question": "What must third-party data processors sign before handling personal data?",
+      "expected": "Data Processing Agreement (DPA)",
+      "answer": "No policy documents are indexed yet. Upload policy PDFs first (Upload Policy), then try again. If you already uploaded policies, use 'Index existing policies' above to index them for Q&A.",
+      "correct": false,
+      "elapsed_sec": 0.092,
+      "retrieved_chunks": []
+    },
+    {
+      "id": 4,
+      "category": "factual",
+      "question": "What approval is required for sub-processors?",
+      "expected": "prior written approval",
+      "answer": "No policy documents are indexed yet. Upload policy PDFs first (Upload Policy), then try again. If you already uploaded policies, use 'Index existing policies' above to index them for Q&A.",
+      "correct": false,
+      "elapsed_sec": 0.123,
+      "retrieved_chunks": []
+    },
+    {
+      "id": 5,
+      "category": "factual",
+      "question": "Who is allowed access to production data?",
+      "expected": "authorized personnel only",
+      "answer": "No policy documents are indexed yet. Upload policy PDFs first (Upload Policy), then try again. If you already uploaded policies, use 'Index existing policies' above to index them for Q&A.",
+      "correct": false,
+      "elapsed_sec": 0.089,
+      "retrieved_chunks": []
+    },
+    {
+      "id": 6,
+      "category": "factual",
+      "question": "What access control model must be enforced?",
+      "expected": "Role-based access control (RBAC)",
+      "answer": "No policy documents are indexed yet. Upload policy PDFs first (Upload Policy), then try again. If you already uploaded policies, use 'Index existing policies' above to index them for Q&A.",
+      "correct": false,
+      "elapsed_sec": 0.086,
+      "retrieved_chunks": []
+    },
+    {
+      "id": 7,
+      "category": "factual",
+      "question": "Within how many days must a new employee complete compliance training?",
+      "expected": "30 days",
+      "answer": "No policy documents are indexed yet. Upload policy PDFs first (Upload Policy), then try again. If you already uploaded policies, use 'Index existing policies' above to index them for Q&A.",
+      "correct": false,
+      "elapsed_sec": 0.087,
+      "retrieved_chunks": []
+    },
+    {
+      "id": 8,
+      "category": "factual",
+      "question": "Who is responsible for tracking training completion?",
+      "expected": "Managers",
+      "answer": "No policy documents are indexed yet. Upload policy PDFs first (Upload Policy), then try again. If you already uploaded policies, use 'Index existing policies' above to index them for Q&A.",
+      "correct": false,
+      "elapsed_sec": 0.087,
+      "retrieved_chunks": []
+    },
+    {
+      "id": 9,
+      "category": "factual",
+      "question": "What must the background_check_status field equal before an employee is granted access to customer data?",
+      "expected": "cleared",
+      "answer": "No policy documents are indexed yet. Upload policy PDFs first (Upload Policy), then try again. If you already uploaded policies, use 'Index existing policies' above to index them for Q&A.",
+      "correct": false,
+      "elapsed_sec": 0.09,
+      "retrieved_chunks": []
+    },
+    {
+      "id": 10,
+      "category": "factual",
+      "question": "How often must access rights be reviewed?",
+      "expected": "quarterly",
+      "answer": "No policy documents are indexed yet. Upload policy PDFs first (Upload Policy), then try again. If you already uploaded policies, use 'Index existing policies' above to index them for Q&A.",
+      "correct": false,
+      "elapsed_sec": 0.096,
+      "retrieved_chunks": []
+    },
+    {
+      "id": 11,
+      "category": "factual",
+      "question": "How old can the last access review date be at most?",
+      "expected": "90 days",
+      "answer": "No policy documents are indexed yet. Upload policy PDFs first (Upload Policy), then try again. If you already uploaded policies, use 'Index existing policies' above to index them for Q&A.",
+      "correct": false,
+      "elapsed_sec": 0.137,
+      "retrieved_chunks": []
+    },
+    {
+      "id": 12,
+      "category": "factual",
+      "question": "After how many months does data handling certification expire?",
+      "expected": "12 months",
+      "answer": "No policy documents are indexed yet. Upload policy PDFs first (Upload Policy), then try again. If you already uploaded policies, use 'Index existing policies' above to index them for Q&A.",
+      "correct": false,
+      "elapsed_sec": 0.117,
+      "retrieved_chunks": []
+    },
+    {
+      "id": 13,
+      "category": "factual",
+      "question": "What field must be true for employees to have completed training by the deadline?",
+      "expected": "training_completed",
+      "answer": "No policy documents are indexed yet. Upload policy PDFs first (Upload Policy), then try again. If you already uploaded policies, use 'Index existing policies' above to index them for Q&A.",
+      "correct": false,
+      "elapsed_sec": 0.177,
+      "retrieved_chunks": []
+    },
+    {
+      "id": 14,
+      "category": "factual",
+      "question": "Must personal data be encrypted in transit?",
+      "expected": "yes",
+      "answer": "No policy documents are indexed yet. Upload policy PDFs first (Upload Policy), then try again. If you already uploaded policies, use 'Index existing policies' above to index them for Q&A.",
+      "correct": false,
+      "elapsed_sec": 0.223,
+      "retrieved_chunks": []
+    },
+    {
+      "id": 15,
+      "category": "factual",
+      "question": "What status must personnel have to be allowed to handle personal data?",
+      "expected": "valid data_handling_certified status",
+      "answer": "No policy documents are indexed yet. Upload policy PDFs first (Upload Policy), then try again. If you already uploaded policies, use 'Index existing policies' above to index them for Q&A.",
+      "correct": false,
+      "elapsed_sec": 0.184,
+      "retrieved_chunks": []
+    },
+    {
+      "id": 16,
+      "category": "multi_sentence",
+      "question": "What are all the requirements for an employee to be granted access to customer data?",
+      "expected": "must have a completed background check with status 'cleared', and must complete security and compliance training within 30 days",
+      "answer": "No policy documents are indexed yet. Upload policy PDFs first (Upload Policy), then try again. If you already uploaded policies, use 'Index existing policies' above to index them for Q&A.",
+      "correct": false,
+      "elapsed_sec": 0.108,
+      "retrieved_chunks": []
+    },
+    {
+      "id": 17,
+      "category": "multi_sentence",
+      "question": "What happens if an employee's access has not been reviewed within the required period?",
+      "expected": "must be flagged",
+      "answer": "No policy documents are indexed yet. Upload policy PDFs first (Upload Policy), then try again. If you already uploaded policies, use 'Index existing policies' above to index them for Q&A.",
+      "correct": false,
+      "elapsed_sec": 0.263,
+      "retrieved_chunks": []
+    },
+    {
+      "id": 18,
+      "category": "multi_sentence",
+      "question": "What are both the obligations for data retention — normal period and the exception?",
+      "expected": "shall not exceed 7 years after the last transaction; longer period allowed if required by law",
+      "answer": "No policy documents are indexed yet. Upload policy PDFs first (Upload Policy), then try again. If you already uploaded policies, use 'Index existing policies' above to index them for Q&A.",
+      "correct": false,
+      "elapsed_sec": 0.138,
+      "retrieved_chunks": []
+    },
+    {
+      "id": 19,
+      "category": "multi_sentence",
+      "question": "What two things must happen regarding third-party processors — DPA and sub-processors?",
+      "expected": "third-party processors must sign a DPA before handling personal data; sub-processors require prior written approval",
+      "answer": "No policy documents are indexed yet. Upload policy PDFs first (Upload Policy), then try again. If you already uploaded policies, use 'Index existing policies' above to index them for Q&A.",
+      "correct": false,
+      "elapsed_sec": 0.12,
+      "retrieved_chunks": []
+    },
+    {
+      "id": 20,
+      "category": "multi_sentence",
+      "question": "What are the two requirements for data handling certification — what status is needed and what must happen when it expires?",
+      "expected": "must hold a valid data_handling_certified status; certification expires after 12 months and must be renewed",
+      "answer": "No policy documents are indexed yet. Upload policy PDFs first (Upload Policy), then try again. If you already uploaded policies, use 'Index existing policies' above to index them for Q&A.",
+      "correct": false,
+      "elapsed_sec": 0.103,
+      "retrieved_chunks": []
+    },
+    {
+      "id": 21,
+      "category": "not_in_documents",
+      "question": "What is the financial penalty for failing to encrypt personal data?",
+      "expected": "Not found in the provided documents.",
+      "answer": "No policy documents are indexed yet. Upload policy PDFs first (Upload Policy), then try again. If you already uploaded policies, use 'Index existing policies' above to index them for Q&A.",
+      "correct": true,
+      "elapsed_sec": 0.101,
+      "retrieved_chunks": []
+    },
+    {
+      "id": 22,
+      "category": "not_in_documents",
+      "question": "How many vacation days are employees entitled to per year?",
+      "expected": "Not found in the provided documents.",
+      "answer": "No policy documents are indexed yet. Upload policy PDFs first (Upload Policy), then try again. If you already uploaded policies, use 'Index existing policies' above to index them for Q&A.",
+      "correct": true,
+      "elapsed_sec": 0.104,
+      "retrieved_chunks": []
+    },
+    {
+      "id": 23,
+      "category": "not_in_documents",
+      "question": "What is the company's policy on remote work?",
+      "expected": "Not found in the provided documents.",
+      "answer": "No policy documents are indexed yet. Upload policy PDFs first (Upload Policy), then try again. If you already uploaded policies, use 'Index existing policies' above to index them for Q&A.",
+      "correct": true,
+      "elapsed_sec": 0.105,
+      "retrieved_chunks": []
+    },
+    {
+      "id": 24,
+      "category": "not_in_documents",
+      "question": "Who is the Data Protection Officer (DPO) for the company?",
+      "expected": "Not found in the provided documents.",
+      "answer": "No policy documents are indexed yet. Upload policy PDFs first (Upload Policy), then try again. If you already uploaded policies, use 'Index existing policies' above to index them for Q&A.",
+      "correct": true,
+      "elapsed_sec": 0.108,
+      "retrieved_chunks": []
+    },
+    {
+      "id": 25,
+      "category": "not_in_documents",
+      "question": "What software tools are approved for storing personal data?",
+      "expected": "Not found in the provided documents.",
+      "answer": "No policy documents are indexed yet. Upload policy PDFs first (Upload Policy), then try again. If you already uploaded policies, use 'Index existing policies' above to index them for Q&A.",
+      "correct": true,
+      "elapsed_sec": 0.1,
+      "retrieved_chunks": []
+    }
+  ]
+}

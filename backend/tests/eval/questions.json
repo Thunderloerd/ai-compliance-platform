@@ -1,0 +1,231 @@
+{
+  "description": "25 evaluation questions for the RAG pipeline. Sources: sample-policy.pdf (Data Protection & Compliance Policy) and sample-hr-policy.pdf (HR & Employee Training Policy).",
+  "questions": [
+    {
+      "id": 1,
+      "category": "factual",
+      "question": "What encryption algorithm must be used for personal data?",
+      "expected_answer": "AES-256",
+      "source_sentence": "Encryption must use industry-standard algorithms (e.g. AES-256).",
+      "section": "1. Data Encryption",
+      "document": "sample-policy.pdf"
+    },
+    {
+      "id": 2,
+      "category": "factual",
+      "question": "For how many years can customer data be retained after the last transaction?",
+      "expected_answer": "7 years",
+      "source_sentence": "Retention period for customer data shall not exceed 7 years after the last transaction, unless a longer period is required by law.",
+      "section": "2. Retention Period",
+      "document": "sample-policy.pdf"
+    },
+    {
+      "id": 3,
+      "category": "factual",
+      "question": "What must third-party data processors sign before handling personal data?",
+      "expected_answer": "Data Processing Agreement (DPA)",
+      "source_sentence": "Third-party data processors must sign a Data Processing Agreement (DPA) before handling any personal data.",
+      "section": "3. Third-Party Processors",
+      "document": "sample-policy.pdf"
+    },
+    {
+      "id": 4,
+      "category": "factual",
+      "question": "What approval is required for sub-processors?",
+      "expected_answer": "prior written approval",
+      "source_sentence": "Sub-processors require prior written approval.",
+      "section": "3. Third-Party Processors",
+      "document": "sample-policy.pdf"
+    },
+    {
+      "id": 5,
+      "category": "factual",
+      "question": "Who is allowed access to production data?",
+      "expected_answer": "authorized personnel only",
+      "source_sentence": "Access to production data is restricted to authorized personnel only.",
+      "section": "4. Access Control",
+      "document": "sample-policy.pdf"
+    },
+    {
+      "id": 6,
+      "category": "factual",
+      "question": "What access control model must be enforced?",
+      "expected_answer": "Role-based access control (RBAC)",
+      "source_sentence": "Role-based access control (RBAC) must be enforced.",
+      "section": "4. Access Control",
+      "document": "sample-policy.pdf"
+    },
+    {
+      "id": 7,
+      "category": "factual",
+      "question": "Within how many days must a new employee complete compliance training?",
+      "expected_answer": "30 days",
+      "source_sentence": "All employees must complete security and compliance training within 30 days of joining.",
+      "section": "1. Mandatory Training Completion",
+      "document": "sample-hr-policy.pdf"
+    },
+    {
+      "id": 8,
+      "category": "factual",
+      "question": "Who is responsible for tracking training completion?",
+      "expected_answer": "Managers",
+      "source_sentence": "Managers are responsible for tracking completion.",
+      "section": "1. Mandatory Training Completion",
+      "document": "sample-hr-policy.pdf"
+    },
+    {
+      "id": 9,
+      "category": "factual",
+      "question": "What must the background_check_status field equal before an employee is granted access to customer data?",
+      "expected_answer": "cleared",
+      "source_sentence": "The background_check_status field must equal 'cleared' before access is granted.",
+      "section": "2. Background Checks",
+      "document": "sample-hr-policy.pdf"
+    },
+    {
+      "id": 10,
+      "category": "factual",
+      "question": "How often must access rights be reviewed?",
+      "expected_answer": "quarterly",
+      "source_sentence": "Access rights must be reviewed quarterly.",
+      "section": "3. Access Review",
+      "document": "sample-hr-policy.pdf"
+    },
+    {
+      "id": 11,
+      "category": "factual",
+      "question": "How old can the last access review date be at most?",
+      "expected_answer": "90 days",
+      "source_sentence": "Last access review date shall not be older than 90 days.",
+      "section": "3. Access Review",
+      "document": "sample-hr-policy.pdf"
+    },
+    {
+      "id": 12,
+      "category": "factual",
+      "question": "After how many months does data handling certification expire?",
+      "expected_answer": "12 months",
+      "source_sentence": "Certification expires after 12 months and must be renewed.",
+      "section": "4. Data Handling Certification",
+      "document": "sample-hr-policy.pdf"
+    },
+    {
+      "id": 13,
+      "category": "factual",
+      "question": "What field must be true for employees to have completed training by the deadline?",
+      "expected_answer": "training_completed",
+      "source_sentence": "The training_completed field must be true by the deadline.",
+      "section": "1. Mandatory Training Completion",
+      "document": "sample-hr-policy.pdf"
+    },
+    {
+      "id": 14,
+      "category": "factual",
+      "question": "Must personal data be encrypted in transit?",
+      "expected_answer": "yes",
+      "source_sentence": "All personal data and sensitive information MUST be encrypted at rest and in transit.",
+      "section": "1. Data Encryption",
+      "document": "sample-policy.pdf"
+    },
+    {
+      "id": 15,
+      "category": "factual",
+      "question": "What status must personnel have to be allowed to handle personal data?",
+      "expected_answer": "valid data_handling_certified status",
+      "source_sentence": "Personnel handling personal data must hold a valid data_handling_certified status.",
+      "section": "4. Data Handling Certification",
+      "document": "sample-hr-policy.pdf"
+    },
+    {
+      "id": 16,
+      "category": "multi_sentence",
+      "question": "What are all the requirements for an employee to be granted access to customer data?",
+      "expected_answer": "must have a completed background check with status 'cleared', and must complete security and compliance training within 30 days",
+      "source_sentence": "Employees with access to customer data must have a completed background check on file. The background_check_status field must equal 'cleared' before access is granted.",
+      "section": "2. Background Checks",
+      "document": "sample-hr-policy.pdf"
+    },
+    {
+      "id": 17,
+      "category": "multi_sentence",
+      "question": "What happens if an employee's access has not been reviewed within the required period?",
+      "expected_answer": "must be flagged",
+      "source_sentence": "Any employee whose access has not been reviewed within this period must be flagged. Last access review date shall not be older than 90 days.",
+      "section": "3. Access Review",
+      "document": "sample-hr-policy.pdf"
+    },
+    {
+      "id": 18,
+      "category": "multi_sentence",
+      "question": "What are both the obligations for data retention — normal period and the exception?",
+      "expected_answer": "shall not exceed 7 years after the last transaction; longer period allowed if required by law",
+      "source_sentence": "Retention period for customer data shall not exceed 7 years after the last transaction, unless a longer period is required by law.",
+      "section": "2. Retention Period",
+      "document": "sample-policy.pdf"
+    },
+    {
+      "id": 19,
+      "category": "multi_sentence",
+      "question": "What two things must happen regarding third-party processors — DPA and sub-processors?",
+      "expected_answer": "third-party processors must sign a DPA before handling personal data; sub-processors require prior written approval",
+      "source_sentence": "Third-party data processors must sign a Data Processing Agreement (DPA) before handling any personal data. Sub-processors require prior written approval.",
+      "section": "3. Third-Party Processors",
+      "document": "sample-policy.pdf"
+    },
+    {
+      "id": 20,
+      "category": "multi_sentence",
+      "question": "What are the two requirements for data handling certification — what status is needed and what must happen when it expires?",
+      "expected_answer": "must hold a valid data_handling_certified status; certification expires after 12 months and must be renewed",
+      "source_sentence": "Personnel handling personal data must hold a valid data_handling_certified status. Certification expires after 12 months and must be renewed.",
+      "section": "4. Data Handling Certification",
+      "document": "sample-hr-policy.pdf"
+    },
+    {
+      "id": 21,
+      "category": "not_in_documents",
+      "question": "What is the financial penalty for failing to encrypt personal data?",
+      "expected_answer": "Not found in the provided documents.",
+      "source_sentence": null,
+      "section": null,
+      "document": null
+    },
+    {
+      "id": 22,
+      "category": "not_in_documents",
+      "question": "How many vacation days are employees entitled to per year?",
+      "expected_answer": "Not found in the provided documents.",
+      "source_sentence": null,
+      "section": null,
+      "document": null
+    },
+    {
+      "id": 23,
+      "category": "not_in_documents",
+      "question": "What is the company's policy on remote work?",
+      "expected_answer": "Not found in the provided documents.",
+      "source_sentence": null,
+      "section": null,
+      "document": null
+    },
+    {
+      "id": 24,
+      "category": "not_in_documents",
+      "question": "Who is the Data Protection Officer (DPO) for the company?",
+      "expected_answer": "Not found in the provided documents.",
+      "source_sentence": null,
+      "section": null,
+      "document": null
+    },
+    {
+      "id": 25,
+      "category": "not_in_documents",
+      "question": "What software tools are approved for storing personal data?",
+      "expected_answer": "Not found in the provided documents.",
+      "source_sentence": null,
+      "section": null,
+      "document": null
+    }
+  ]
+}
+
