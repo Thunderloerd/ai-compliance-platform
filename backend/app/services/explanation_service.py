@@ -1,7 +1,7 @@
 """Generate human-readable explanations for compliance violations using OpenAI or Groq (Llama 3.3 70B)."""
 
 from app.config import settings
-from app.services.llm_client import get_completion_client, get_completion_model
+from app.services.llm_client import chat_completion_with_retry, get_completion_client, get_fast_model
 
 
 def _rag_excerpts_for_rule(policy_id: int | None, rule_data: dict) -> str:
@@ -56,11 +56,13 @@ Query used: {sql_query}
 
 Explanation:"""
 
-    response = client.chat.completions.create(
-        model=get_completion_model(),
+    response = chat_completion_with_retry(
+        client=client,
+        model=get_fast_model(),
         messages=[{"role": "user", "content": prompt}],
         temperature=0.2,
-        max_tokens=150,
+        max_tokens=512,
+        kind="fast",
     )
     content = response.choices[0].message.content
     return (content or "").strip()
@@ -97,11 +99,13 @@ Why it violates: {explanation}
 
 Remediation steps (plain text, short bullets or numbered list):"""
 
-    response = client.chat.completions.create(
-        model=get_completion_model(),
+    response = chat_completion_with_retry(
+        client=client,
+        model=get_fast_model(),
         messages=[{"role": "user", "content": prompt}],
         temperature=0.2,
-        max_tokens=200,
+        max_tokens=512,
+        kind="fast",
     )
     content = response.choices[0].message.content
     return (content or "").strip()

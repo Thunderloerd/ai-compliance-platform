@@ -35,9 +35,11 @@ class Settings(BaseSettings):
     # When True (default), RAG uses local sentence-transformers for embeddings so OpenAI is not required. Set False to use OpenAI embeddings.
     USE_LOCAL_EMBEDDINGS: bool = True
 
-    # Groq (LLM completion: Ask policy, rule extraction, explanations). When set, uses Groq + Llama 3.3 70B instead of OpenAI for chat.
+    # Groq (LLM completion: Ask policy, rule extraction, explanations). When set, uses Groq models.
     GROQ_API_KEY: str = ""
-    GROQ_MODEL: str = "llama-3.3-70b-versatile"
+    GROQ_MODEL: str = "openai/gpt-oss-120b"
+    GROQ_ANSWER_MODEL: str = "openai/gpt-oss-120b"
+    GROQ_FAST_MODEL: str = "openai/gpt-oss-20b"
 
     # RAG (Retrieval-Augmented Generation). Embeddings: local (sentence-transformers) when USE_LOCAL_EMBEDDINGS=true, else OpenAI.
     RAG_CHROMA_PATH: str = ""

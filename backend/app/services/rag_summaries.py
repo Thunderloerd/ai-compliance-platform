@@ -46,18 +46,27 @@ def generate_section_summaries(
         return []
     out = []
     try:
-        from app.services.llm_client import get_completion_client, get_completion_model
+        from app.services.llm_client import (
+            chat_completion_with_retry,
+            get_completion_client,
+            get_fast_model,
+        )
         client = get_completion_client()
-        model = get_completion_model()
+        model = get_fast_model()
         for i, section in enumerate(sections):
             if len(section) < 100:
                 out.append({"text": section, "section_index": i})
                 continue
             prompt = f"Summarize this policy section in 1-3 short sentences. Preserve key requirements and numbers.\n\nSection:\n{section[:3000]}"
             try:
-                response = client.chat.completions.create(
+                response = chat_completion_with_retry(
+                    client=client,
                     model=model,
                     messages=[{"role": "user", "content": prompt}],
+                    max_tokens=256,
+                    temperature=0.2,
+                    kind="fast",
+                )
                     temperature=0.2,
                     max_tokens=150,
                 )

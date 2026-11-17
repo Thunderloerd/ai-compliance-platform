@@ -170,7 +170,11 @@ def _do_ask_sync(
     Returns (answer_text, chunks_used or None, retrieval_time_ms, llm_time_ms, tokens_sent, tokens_returned).
     Run via asyncio.to_thread.
     """
-    from app.services.llm_client import get_completion_client, get_completion_model
+    from app.services.llm_client import (
+        chat_completion_with_retry,
+        get_answer_model,
+        get_completion_client,
+    )
     from app.services import rag_cache
     from app.services.rag_service import count_tokens
 
@@ -197,10 +201,11 @@ def _do_ask_sync(
             try:
                 t1 = time.perf_counter()
                 client = get_completion_client()
-                max_tokens = getattr(settings, "RAG_ASK_MAX_TOKENS", 500)
+                max_tokens = max(1024, getattr(settings, "RAG_ASK_MAX_TOKENS", 500))
                 temperature = getattr(settings, "RAG_ASK_TEMPERATURE", 0.2)
-                response = client.chat.completions.create(
-                    model=get_completion_model(),
+                response = chat_completion_with_retry(
+                    client=client,
+                    model=get_answer_model(),
                     messages=[
                         {"role": "system", "content": SYSTEM_PROMPT_COMPANY_DB},
                         {"role": "user", "content": user_content},
@@ -247,10 +252,11 @@ def _do_ask_sync(
             try:
                 t1 = time.perf_counter()
                 client = get_completion_client()
-                max_tokens = getattr(settings, "RAG_ASK_MAX_TOKENS", 500)
+                max_tokens = max(1024, getattr(settings, "RAG_ASK_MAX_TOKENS", 500))
                 temperature = getattr(settings, "RAG_ASK_TEMPERATURE", 0.2)
-                response = client.chat.completions.create(
-                    model=get_completion_model(),
+                response = chat_completion_with_retry(
+                    client=client,
+                    model=get_answer_model(),
                     messages=[
                         {"role": "system", "content": SYSTEM_PROMPT_FALLBACK},
                         {"role": "user", "content": user_content},
@@ -296,10 +302,11 @@ def _do_ask_sync(
     try:
         t1 = time.perf_counter()
         client = get_completion_client()
-        max_tokens = getattr(settings, "RAG_ASK_MAX_TOKENS", 500)
+        max_tokens = max(1024, getattr(settings, "RAG_ASK_MAX_TOKENS", 500))
         temperature = getattr(settings, "RAG_ASK_TEMPERATURE", 0.2)
-        response = client.chat.completions.create(
-            model=get_completion_model(),
+        response = chat_completion_with_retry(
+            client=client,
+            model=get_answer_model(),
             messages=[
                 {"role": "system", "content": SYSTEM_PROMPT_RAG},
                 {"role": "user", "content": user_content},
@@ -328,11 +335,15 @@ def _stream_ask_sync_producer(
     use_summaries_only: bool = False,
 ) -> None:
     """Run in thread: stream LLM deltas into queue. Puts None when done. Company DB first, then Chroma."""
-    from app.services.llm_client import get_completion_client, get_completion_model
-    from app.services import rag_cache
+    from app.services.llm_client import get_completion_client, get_answer_model
     import json
 
     try:
+        model = get_answer_model()
+        extra_kwargs = {}
+        if "gpt-oss" in model.lower():
+            extra_kwargs["extra_body"] = {"reasoning_format": "hidden", "reasoning_effort": "low"}
+
         use_company_db = getattr(settings, "USE_COMPANY_DB_FOR_ASK", True)
         if use_company_db:
             limit = getattr(settings, "COMPANY_POLICY_SEARCH_LIMIT", 10)
@@ -349,11 +360,11 @@ def _stream_ask_sync_producer(
             context = "\n\n---\n\n".join(context_parts).strip()
             if context:
                 user_content = f"""Policy content from company database:\n\n{context}\n\nUser question: {cleaned}\n\nAnswer (based only on the policy content above):"""
-                max_tokens = getattr(settings, "RAG_ASK_MAX_TOKENS", 500)
+                max_tokens = max(1024, getattr(settings, "RAG_ASK_MAX_TOKENS", 500))
                 temperature = getattr(settings, "RAG_ASK_TEMPERATURE", 0.2)
                 client = get_completion_client()
                 response = client.chat.completions.create(
-                    model=get_completion_model(),
+                    model=model,
                     messages=[
                         {"role": "system", "content": SYSTEM_PROMPT_COMPANY_DB},
                         {"role": "user", "content": user_content},
@@ -361,6 +372,7 @@ def _stream_ask_sync_producer(
                     temperature=temperature,
                     max_tokens=max_tokens,
                     stream=True,
+                    **extra_kwargs,
                 )
                 for chunk in response:
                     if chunk.choices and chunk.choices[0].delta.content:
@@ -389,11 +401,11 @@ def _stream_ask_sync_producer(
             out_queue.put(None)
             return
         user_content = f"""Policy excerpts:\n\n{excerpts_text}\n\nUser question: {cleaned}\n\nAnswer (based only on the policy excerpts above):"""
-        max_tokens = getattr(settings, "RAG_ASK_MAX_TOKENS", 500)
+        max_tokens = max(1024, getattr(settings, "RAG_ASK_MAX_TOKENS", 500))
         temperature = getattr(settings, "RAG_ASK_TEMPERATURE", 0.2)
         client = get_completion_client()
         response = client.chat.completions.create(
-            model=get_completion_model(),
+            model=model,
             messages=[
                 {"role": "system", "content": SYSTEM_PROMPT_RAG},
                 {"role": "user", "content": user_content},
@@ -401,6 +413,7 @@ def _stream_ask_sync_producer(
             temperature=temperature,
             max_tokens=max_tokens,
             stream=True,
+            **extra_kwargs,
         )
         for chunk in response:
             if chunk.choices and chunk.choices[0].delta.content:
@@ -650,67 +663,22 @@ async def upload_policy(
         existing_ids = [p.id for p in existing]
         for p in existing:
             p.is_active = False
-        policy = Policy(name=policy_name, version=new_version, is_active=True)
+        policy = Policy(name=policy_name, version=new_version, is_active=True, extracted_text=text)
     else:
-        policy = Policy(name=policy_name, version=1, is_active=True)
+        policy = Policy(name=policy_name, version=1, is_active=True, extracted_text=text)
     db.add(policy)
-    db.flush()
+    # Save the policy and text FIRST and commit so the policy is never lost
+    db.commit()
+    db.refresh(policy)
 
-    # Persist policy text for RAG and index in vector store
-    policy.extracted_text = text
+    # Index policy in Chroma FIRST: remove old versions' chunks so only latest is used, then index new
+    try:
+        for old_id in existing_ids:
+            delete_policy_from_index(old_id)
+        index_policy_chunks(text, policy.id, policy_name)
+    except Exception as e:
+        logger.warning("RAG indexing failed for policy_id=%s: %s", policy.id, e)
 
-    # Wait only for rule extraction so upload returns quickly; RAG indexing runs in background
-    rule_dicts: list[dict] = []
-    with ThreadPoolExecutor(max_workers=1) as executor:
-        future_rules = executor.submit(extract_rules_from_text, text, policy.id)
-        try:
-            rule_dicts = future_rules.result(timeout=UPLOAD_PROCESS_TIMEOUT)
-        except FuturesTimeoutError:
-            logger.warning("Policy upload: rule extraction timed out after %ss; using fallback rules", UPLOAD_PROCESS_TIMEOUT)
-            rule_dicts = _fallback_rules_from_text(text)
-        except RuleExtractionError as e:
-            logger.warning("Policy upload: rule extraction failed | error=%s", str(e))
-            raise HTTPException(status_code=422, detail=str(e)) from e
-
-    validated_rules = []
-    for i, rd in enumerate(rule_dicts):
-        try:
-            validated = validate_rule_data(rd)
-            validated_rules.append(validated)
-        except ValueError as e:
-            logger.warning(
-                "Policy upload: rule validation failed | index=%s | error=%s",
-                i,
-                str(e),
-            )
-            raise HTTPException(
-                status_code=422,
-                detail=f"Rule at index {i} failed validation: {e}",
-            ) from e
-
-    for rd in validated_rules:
-        severity = rd.get("severity") or "medium"
-        rule = Rule(
-            policy_id=policy.id,
-            rule_data=rd,
-            severity=severity,
-        )
-        db.add(rule)
-
-    db.flush()
-    # Index policy in RAG in background: remove old versions' chunks so only latest is used, then index new
-    def _index_in_background() -> None:
-        try:
-            for old_id in existing_ids:
-                delete_policy_from_index(old_id)
-            index_policy_chunks(text, policy.id, policy_name)
-        except Exception as e:
-            logger.warning("RAG background index failed for policy_id=%s: %s", policy.id, e)
-    threading.Thread(target=_index_in_background, daemon=True).start()
-
-    stored_rules = (
-        db.query(Rule).filter(Rule.policy_id == policy.id).order_by(Rule.id).all()
-    )
     db.add(
         AuditLog(
             action_type="policy_uploaded",
@@ -720,24 +688,124 @@ async def upload_policy(
             meta={
                 "policy_name": policy_name,
                 "filename": file.filename,
-                "rules_count": len(stored_rules),
             },
         )
     )
+    db.commit()
+
+    # Now attempt rule extraction. If it fails, keep the policy and the index.
+    rules_status = "success"
+    rules_error = None
+    stored_rules = []
+
+    try:
+        rule_dicts = extract_rules_from_text(text, policy.id)
+        validated_rules = []
+        for i, rd in enumerate(rule_dicts):
+            try:
+                validated_rules.append(validate_rule_data(rd))
+            except ValueError as ve:
+                logger.warning(
+                    "Policy upload: rule validation failed | index=%s | error=%s",
+                    i,
+                    str(ve),
+                )
+        for rd in validated_rules:
+            severity = rd.get("severity") or "medium"
+            rule = Rule(
+                policy_id=policy.id,
+                rule_data=rd,
+                severity=severity,
+            )
+            db.add(rule)
+        db.commit()
+        stored_rules = (
+            db.query(Rule).filter(Rule.policy_id == policy.id).order_by(Rule.id).all()
+        )
+    except Exception as e:
+        logger.warning("Policy upload: rule extraction failed | policy_id=%s | error=%s", policy.id, str(e))
+        rules_status = "failed"
+        rules_error = str(e)
+
     db.add(
         Notification(
-            type="success",
+            type="success" if rules_status == "success" else "warning",
             title="Policy uploaded",
-            body=f'"{policy_name}" uploaded with {len(stored_rules)} rules extracted.',
+            body=(
+                f'"{policy_name}" uploaded with {len(stored_rules)} rules extracted.'
+                if rules_status == "success"
+                else f'"{policy_name}" uploaded. Rule extraction failed: {rules_error}'
+            ),
             read=False,
         )
     )
     db.commit()
     logger.info(
-        "Policy upload completed | policy_name=%s | policy_id=%s | version=%s | rules_count=%s",
+        "Policy upload completed | policy_name=%s | policy_id=%s | version=%s | rules_count=%s | rules_status=%s",
         policy_name,
         policy.id,
         policy.version,
         len(stored_rules),
+        rules_status,
     )
-    return [_rule_to_response(rule) for rule in stored_rules]
+
+    if stored_rules:
+        return [
+            {
+                **_rule_to_response(rule),
+                "rules_status": "success",
+                "error": None,
+            }
+            for rule in stored_rules
+        ]
+    return [
+        {
+            "id": 0,
+            "policy_id": policy.id,
+            "rules_status": "failed",
+            "error": rules_error or "No rules extracted",
+            "rule_data": {"policy_clause_text": f"Rule extraction: {rules_status}. {rules_error or ''}"},
+            "severity": "medium",
+            "created_at": policy.uploaded_at.isoformat() if policy.uploaded_at else None,
+        }
+    ]
+
+
+@router.post("/{policy_id}/extract-rules")
+def retry_policy_rules(
+    policy_id: int,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+) -> dict:
+    """Retry rule extraction for an already-uploaded policy."""
+    policy = db.query(Policy).filter(Policy.id == policy_id).first()
+    if not policy:
+        raise HTTPException(status_code=404, detail="Policy not found")
+    if not policy.extracted_text:
+        raise HTTPException(status_code=400, detail="Policy has no extracted text")
+
+    try:
+        rule_dicts = extract_rules_from_text(policy.extracted_text, policy.id)
+        validated_rules = [validate_rule_data(rd) for rd in rule_dicts]
+        db.query(Rule).filter(Rule.policy_id == policy.id).delete()
+        for rd in validated_rules:
+            severity = rd.get("severity") or "medium"
+            db.add(Rule(policy_id=policy.id, rule_data=rd, severity=severity))
+        db.commit()
+        stored = db.query(Rule).filter(Rule.policy_id == policy.id).order_by(Rule.id).all()
+        return {
+            "policy_id": policy.id,
+            "rules_status": "success",
+            "rules_count": len(stored),
+            "rules": [_rule_to_response(r) for r in stored],
+            "error": None,
+        }
+    except Exception as e:
+        logger.warning("Retry rule extraction failed for policy_id=%s: %s", policy.id, e)
+        return {
+            "policy_id": policy.id,
+            "rules_status": "failed",
+            "rules_count": 0,
+            "rules": [],
+            "error": str(e),
+        }

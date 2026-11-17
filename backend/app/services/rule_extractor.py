@@ -4,7 +4,12 @@ import json
 import re
 
 from app.config import settings
-from app.services.llm_client import get_completion_client, get_completion_model, is_completion_available
+from app.services.llm_client import (
+    chat_completion_with_retry,
+    get_answer_model,
+    get_completion_client,
+    is_completion_available,
+)
 
 # Expected keys; condition can be string or structured object
 RULE_KEYS = {
@@ -84,7 +89,8 @@ def _parse_json_safely(raw: str) -> list[dict]:
             if k == "policy_clause_text":
                 normalized[k] = item.get(k)
             elif k == "condition":
-                normalized[k] = item.get(k, {"type": "equality"})
+                cond = item.get(k)
+                normalized[k] = cond if cond is not None else {"type": "equality"}
             else:
                 normalized[k] = item.get(k, "" if k != "value" else None)
         if normalized.get("value") is None and "value" in item:
@@ -150,22 +156,24 @@ Policy text:
 
     try:
         client = get_completion_client()
-        response = client.chat.completions.create(
-            model=get_completion_model(),
+        response = chat_completion_with_retry(
+            client=client,
+            model=get_answer_model(),
             messages=[
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": user_prompt},
             ],
             temperature=0.1,
+            max_tokens=2048,
         )
     except Exception as e:
         err_str = str(e).lower()
         if "401" in err_str or "invalid_api_key" in err_str or "incorrect api key" in err_str:
             return _fallback_rules_from_text(text)
-        raise RuleExtractionError(f"OpenAI API error: {e}") from e
+        raise RuleExtractionError(f"Rule extraction API error: {e}") from e
 
     if not response.choices:
-        raise RuleExtractionError("OpenAI returned no choices")
+        raise RuleExtractionError("Rule extraction returned no choices")
     content = response.choices[0].message.content
     if not content:
         return []

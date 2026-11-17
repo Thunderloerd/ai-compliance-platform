@@ -39,7 +39,7 @@ EMAIL    = os.environ.get("EVAL_EMAIL",    "admin@company.com")
 PASSWORD = os.environ.get("EVAL_PASSWORD", "Admin@123")
 
 QUESTIONS_FILE = Path(__file__).parent / "questions.json"
-RESULTS_FILE   = Path(__file__).parent / "results_baseline.json"
+RESULTS_FILE   = Path(__file__).parent / (sys.argv[1] if len(sys.argv) > 1 else os.environ.get("EVAL_RESULTS_FILE", "results_baseline_real.json"))
 
 # Keywords that mean the AI correctly refused to answer
 NOT_FOUND_PHRASES = [
@@ -130,6 +130,7 @@ def get_retrieved_chunks(question: str) -> list[dict]:
             score = 1.0 - float(dist)
             chunks.append({
                 "text":        doc[:200],  # first 200 chars for readability
+                "raw_distance": round(float(dist), 4),
                 "score":       round(score, 4),
                 "passes_cutoff": score >= cutoff,
                 "policy_name": meta.get("policy_name"),
@@ -227,35 +228,40 @@ def main() -> None:
     print(f"  Correct 'not in docs'    : {n_nf_ok}/{len(not_found_qs)}")
     print(f"  Average time per Q       : {avg_time:.1f}s")
 
-    # ── Worst failures ────────────────────────────────────────────────────────
+    # ── 8 Worst failures ──────────────────────────────────────────────────────
     failures = [r for r in results if not r["correct"]]
     failures.sort(key=lambda r: r["elapsed_sec"])  # fastest first so we see more variety
-    worst = failures[:5]
+    worst = failures[:8]
 
     print("\n" + "=" * 70)
-    print("5 WORST FAILURES")
+    print("8 WORST FAILURES")
     print("=" * 70)
     for i, r in enumerate(worst, 1):
         chunks = r["retrieved_chunks"]
         passes = [c for c in chunks if isinstance(c, dict) and c.get("passes_cutoff")]
+        top_raw = [c.get("raw_distance") for c in chunks if isinstance(c, dict) and c.get("raw_distance") is not None]
         all_failed_cutoff = len(passes) == 0 and len(chunks) > 0
         no_chunks = len(chunks) == 0
+        ai_got_context = len(passes) > 0
 
         if no_chunks:
             reason = "nothing retrieved — RAG index may be empty"
         elif all_failed_cutoff:
             top_score = max((c.get("score", 0) for c in chunks if isinstance(c, dict)), default=0)
-            reason = f"nothing passed 0.75 cutoff (best score = {top_score:.4f}) — wrong chunk or score too low"
+            reason = f"nothing passed 0.75 cutoff (best score = {top_score:.4f}) — L2 distance > 1 causes negative score"
         elif r["answer"].lower().startswith("http_error"):
             reason = f"API error — {r['answer']}"
         else:
             reason = "chunks retrieved and passed cutoff but AI gave wrong answer"
 
         print(f"\n  Failure {i} (Q{r['id']}): {r['question']!r}")
-        print(f"    Category : {r['category']}")
-        print(f"    Expected : {r['expected']!r}")
-        print(f"    Got      : {r['answer'][:200]!r}")
-        print(f"    Reason   : {reason}")
+        print(f"    Category           : {r['category']}")
+        print(f"    Expected           : {r['expected']!r}")
+        print(f"    Got                : {r['answer'][:200]!r}")
+        print(f"    Chunks passing >=0.75 : {len(passes)} of {len(chunks)}")
+        print(f"    Top raw distances  : {top_raw[:3]}")
+        print(f"    AI got context     : {ai_got_context}")
+        print(f"    Reason             : {reason}")
 
     # ── Save JSON ─────────────────────────────────────────────────────────────
     output = {

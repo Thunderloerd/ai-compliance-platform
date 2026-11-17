@@ -139,6 +139,12 @@ async def lifespan(app: FastAPI):
     setup_logging(level=logging.DEBUG if settings.DEBUG else logging.INFO)
     init_db()
     start_scheduler()
+    # Check Groq model availability on startup (non-fatal warning if unavailable)
+    try:
+        from app.services.llm_client import check_groq_models_at_startup
+        check_groq_models_at_startup()
+    except Exception as e:
+        logger.warning("Groq model check at startup skipped: %s", e)
     # Pre-warm RAG so first upload/index is fast (runs in background, does not block startup)
     threading.Thread(target=_warmup_rag_background, daemon=True).start()
     yield
@@ -225,7 +231,7 @@ def _check_groq_api_key() -> dict:
     key = getattr(settings, "GROQ_API_KEY", None)
     if key and str(key).strip() and "your_groq_key_here" not in str(key).lower():
         return {"status": "ok", "message": "API key present"}
-    return {"status": "missing", "message": "GROQ_API_KEY not set (required for Groq + Llama)"}
+    return {"status": "missing", "message": "GROQ_API_KEY not set (required for Groq)"}
 
 
 def _check_scheduler() -> dict:
